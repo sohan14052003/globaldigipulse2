@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.12;
+            z-index: 0;
+        }
+        .register-container {
+            position: relative;
+            z-index: 1;
+            background: #fff;
+            padding: 2rem 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+            width: 370px;
+        }
+        .register-container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        .register-container label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        .register-container input[type="text"],
+        .register-container input[type="email"],
+        .register-container input[type="password"] {
+            width: 100%;
+            padding: 0.7rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .register-container button {
+            width: 100%;
+            padding: 0.8rem;
+            background: #f7971e;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .register-container button:hover {
+            background: #e67e22;
+        }
+        .register-container .login-link {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: #f7971e;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .register-container .login-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Register</h2>
+        <form>
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" name="confirm-password" required>
+
+            <button type="submit">Register</button>
+        </form>
+        <a href="loginpage.html" class="login-link">Already have an account? Login</a>
+    </div>
+    <script>
+        document.querySelector('form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const fullname = document.getElementById('fullname').value;
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            try {
+                const res = await fetch('http://localhost:5000/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ fullname, email, username, password })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert('Registration successful!');
+                    window.location.href = 'loginpage.html';
+                } else {
+                    alert(data.error || 'Registration failed.');
+                }
+            } catch (err) {
+                alert('Could not connect to server.');
+            }
+        });
+    </script>
+</body>
+</html>

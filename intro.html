@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLOBAL DIGI PULSE</title>
+    <link rel="stylesheet" href="../css/app2.css">
+    <link rel="icon" type="image/png" href="../images/icon-7797704_640.JPG">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        body {
+            background-color: #f7f7fa;
+        }
+        .intro-box {
+            padding: 40px 28px;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(46, 154, 208, 0.18);
+            min-width: 340px;
+            z-index: 3;
+            background: rgba(255, 255, 255, 0.92);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #2e9ad0;
+            font-size: 2.6rem;
+            text-shadow: 2px 2px 12px #ffe066, 0 2px 8px #2e9ad0;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 28px;
+            text-align: center;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #ff4e50;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .intro-btn {
+            background: linear-gradient(90deg, #2e9ad0 0%, #ffe066 100%);
+            color: #232946;
+            border: none;
+            border-radius: 32px;
+            padding: 16px 40px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 24px #2e9ad0a0, 0 2px 8px #ffe066a0;
+            margin-top: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.18s, box-shadow 0.18s;
+            outline: none;
+            z-index: 1;
+            animation: pulseGlow 1.8s infinite;
+        }
+        .intro-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border-radius: 36px;
+            background: linear-gradient(120deg, #ffe066 0%, #2e9ad0 100%);
+            filter: blur(8px);
+            opacity: 0.5;
+            z-index: -1;
+            transition: opacity 0.2s;
+        }
+        .intro-btn:hover, .intro-btn:focus {
+            transform: scale(1.04);
+            box-shadow: 0 8px 32px #ffe066, 0 2px 16px #2e9ad0;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 4px 24px #2e9ad0a0, 0 2px 8px #ffe066a0; }
+            50% { box-shadow: 0 8px 40px #ffe066, 0 2px 16px #2e9ad0; }
+        }
+        .button-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-left: 48px;
+            margin-top: 180px;
+            align-items: stretch;
+        }
+        .btn-group {
+            width: 100%;
+            max-width: 380px;
+            min-height: 64px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 24px #2e9ad0a0, 0 2px 8px #ffe066a0;
+            border-radius: 28px;
+            background: rgba(255,255,255,0.92);
+            position: relative;
+            overflow: visible;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .btn-group::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 32px;
+            background: linear-gradient(120deg, #ffe066 0%, #2e9ad0 100%);
+            filter: blur(8px);
+            opacity: 0.4;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .btn-group:hover {
+            box-shadow: 0 12px 36px #ffe066, 0 4px 24px #2e9ad0;
+            transform: scale(1.035);
+        }
+        .icon-circle {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-right: 16px;
+            background: linear-gradient(135deg, #2e9ad0 60%, #ffe066 100%);
+            border: 2px solid #fff;
+            box-shadow: 0 2px 8px #ffe066;
+            border-radius: 50%;
+            color: #232946;
+            position: relative;
+            z-index: 2;
+        }
+        .icon-circle svg {
+            width: 28px;
+            height: 28px;
+        }
+        .pill-bg {
+            flex: 1;
+            width: 100%;
+            border-radius: 24px;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            background: linear-gradient(90deg, #2e9ad0 0%, #ffe066 100%);
+            box-shadow: 0 2px 8px #2e9ad0a0;
+            transition: background 0.2s, filter 0.2s;
+            position: relative;
+            z-index: 1;
+        }
+        .pill-bg button {
+            background: none;
+            border: none;
+            color: #232946;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 4px #ffe066;
+            padding: 0;
+            text-transform: uppercase;
+        }
+        .pill-bg:hover {
+            filter: brightness(1.18) saturate(1.2);
+        }
+        .blue-grad {
+            background: linear-gradient(90deg, #2e9ad0 0%, #6dd5ed 100%);
+        }
+        .pink-grad {
+            background: linear-gradient(90deg, #ff4e50 0%, #ffe066 100%);
+        }
+        .orange-grad {
+            background: linear-gradient(90deg, #ffb347 0%, #ff4e50 100%);
+        }
+        @media (max-width: 900px) {
+            .container { flex-direction: column !important; align-items: center !important; }
+            .intro-box { flex-direction: column !important; gap: 0 !important; min-width: 98vw !important; padding: 12px !important; }
+            .button-sidebar { margin-left: 0 !important; margin-top: 32px !important; align-items: center !important; }
+        }
+        @media (max-width: 600px) {
+            .container { flex-direction: column !important; align-items: center !important; justify-content: flex-start !important; height: auto !important; min-height: 100vh; }
+            .intro-box {
+                min-width: 98vw !important;
+                padding: 16px !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 0 !important;
+            }
+            h1 { font-size: 1.4rem !important; color: #2e9ad0 !important; margin-bottom: 18px !important; text-shadow: 1px 1px 6px #ffe066, 0 1px 4px #2e9ad0 !important; font-weight: bold !important; letter-spacing: 1px !important; text-align: center !important; word-break: break-word !important; white-space: normal !important; line-height: 1.2 !important; }
+            p { display: none !important; }
+            .video-container { margin-bottom: 12px !important; }
+            .button-sidebar {
+                margin: 12px auto 0 auto !important;
+                align-items: center !important;
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                position: static !important;
+            }
+            .btn-group {
+                max-width: 98vw;
+                min-height: 48px;
+                border-radius: 16px;
+                width: 100% !important;
+                justify-content: center !important;
+            }
+            .icon-circle {
+                width: 34px;
+                height: 34px;
+                font-size: 15px;
+                margin-right: 8px;
+            }
+            .icon-circle svg {
+                width: 18px;
+                height: 18px;
+            }
+            .pill-bg {
+                padding: 9px 14px;
+                border-radius: 14px;
+            }
+            .pill-bg button {
+                font-size: 13px;
+            }
+            .content-left { width: 100% !important; }
+            .intro-btn { margin-top: 12px !important; font-size: 15px !important; padding: 10px 18px !important; border-radius: 18px !important; }
+        }
+    </style>
+</head>
+<body style="background-color:#f7f7fa;position:relative;">
+  <div class="gradient-overlay" style="position:absolute;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#f7f7fa 0%,#2e9ad0 100%);opacity:0.85;z-index:0;"></div>
+  <main class="container" style="display:flex;flex-direction:row;align-items:center;justify-content:center;height:100vh;position:relative;z-index:1;">
+    <section class="content-left" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <div class="intro-box" style="display:flex;flex-direction:row;align-items:flex-start;justify-content:center;width:100%;gap:32px;">
+        <div style="flex:1;min-width:260px;max-width:420px;display:flex;flex-direction:column;align-items:center;">
+          <h1>WELCOME TO GLOBAL DIGI PULSE</h1>
+          <div class="video-container" style="width:100%;max-width:420px;margin-bottom:24px;border-radius:12px;box-shadow:0 2px 8px #2e9ad0;overflow:hidden;">
+            <video width="100%" height="220" controls style="border-radius:12px;max-height: 220px;">
+              <source src="https://archive.org/download/short-video.jpg/short%20video2.jpg.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div style="margin-top:24px;display:flex;flex-direction:column;gap:12px;width:100%;align-items:center;">
+            <button class="intro-btn" id="goToWelcomeBtn">
+              <svg style="vertical-align:middle;margin-right:10px;" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="13" cy="13" r="12" stroke="#2e9ad0" stroke-width="2" fill="#ffe066"/><path d="M10 9l6 4-6 4V9z" fill="#2e9ad0"/></svg>
+              Next Page
+            </button>
+          </div>
+        </div>
+        <aside class="button-sidebar" style="display:flex;flex-direction:column;gap:24px;margin-left:48px;margin-top:180px;align-items:stretch;">
+          <div class="btn-group">
+            <div class="icon-circle">
+              <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="16" fill="#fff"/><path d="M20.5 16.5H17V25H14V16.5H12V14h2V12.5c0-2.2 1.3-3.5 3.3-3.5.7 0 1.5.1 1.7.2v2.5h-1.2c-.7 0-.8.3-.8.8V14h2.7l-.2 2.5z" fill="#2e9ad0"/></svg>
+            </div>
+            <div class="pill-bg blue-grad">
+              <button onclick="showYoutubePopup()">PROSPECTING ON YOUTUBE FOR ORGANIC SALES</button>
+            </div>
+          </div>
+          <div class="btn-group">
+            <div class="icon-circle">
+              <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="16" fill="#fff"/><path d="M16 9c-4.4 0-8 3.6-8 8 0 3.5 2.3 6.4 5.5 7.6v-5.4h-1.7v-2.2h1.7v-1.7c0-1.7 1-2.7 2.6-2.7.8 0 1.6.1 1.6.1v1.8h-.9c-.9 0-1.1.4-1.1 1.1v1.4h2.2l-.3 2.2h-1.9v5.4c3.2-1.2 5.5-4.1 5.5-7.6 0-4.4-3.6-8-8-8z" fill="#2e9ad0"/></svg>
+            </div>
+            <div class="pill-bg pink-grad">
+              <button onclick="showFacebookPopup()">PROSPECTING ON FACEBOOK FOR ORGANIC SALES</button>
+            </div>
+          </div>
+          <div class="btn-group">
+            <div class="icon-circle">
+              <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="16" fill="#fff"/><path d="M16 9c-3.9 0-7 3.1-7 7 0 3.9 3.1 7 7 7s7-3.1 7-7c0-3.9-3.1-7-7-7zm3.2 10.2c-.3.7-1.1 1.2-2.2 1.2-1.1 0-1.9-.5-2.2-1.2-.1-.2 0-.4.2-.5.2-.1.4 0 .5.2.2.4.7.8 1.5.8.8 0 1.3-.4 1.5-.8.1-.2.3-.3.5-.2.2.1.3.3.2.5zm2.1-2.1c-.2.2-.5.2-.7 0-.2-.2-.2-.5 0-.7.2-.2.5-.2.7 0 .2.2.2.5 0 .7zm-8.6 0c-.2.2-.5.2-.7 0-.2-.2-.2-.5 0-.7.2-.2.5-.2.7 0 .2.2.2.5 0 .7zm7.2-2.2c-.1.2-.3.3-.5.2-.2-.1-.3-.3-.2-.5.1-.2.3-.3.5-.2.2.1.3.3.2.5zm-5.8 0c-.1.2-.3.3-.5.2-.2-.1-.3-.3-.2-.5.1-.2.3-.3.5-.2.2.1.3.3.2.5zm2.9-1.1c-.3 0-.5-.2-.5-.5s.2-.5.5-.5.5.2.5.5-.2.5-.5.5z" fill="#2e9ad0"/></svg>
+            </div>
+            <div class="pill-bg orange-grad">
+              <button onclick="showInstagramPopup()">PROSPECTING ON INSTAGRAM FOR ORGANIC SALES</button>
+            </div>
+          </div>
+          <div class="btn-group">
+            <div class="icon-circle">
+              <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="16" fill="#fff"/><path d="M16 9c-3.9 0-7 3.1-7 7 0 3.9 3.1 7 7 7s7-3.1 7-7c0-3.9-3.1-7-7-7zm0 12.2c-2.9 0-5.2-2.3-5.2-5.2s2.3-5.2 5.2-5.2 5.2 2.3 5.2 5.2-2.3 5.2-5.2 5.2z" fill="#2e9ad0"/></svg>
+            </div>
+            <div class="pill-bg blue-grad">
+              <button onclick="showSocialPopup()">ORGANIC SALES - SOCIAL PRESENCES</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <div id="organic-popup" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:none;padding:0;border-radius:0;box-shadow:none;width:100vw;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <video id="organic-video" width="100%" height="100%" controls style="border-radius:0;max-width:100vw;max-height:100vh;background:#000;">
+        <source src="https://archive.org/download/bonus-video-2.jpg/1.%20Prospecting%20on%20youtube%20for%20organic%20sales.jpg%20%282%29.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <button onclick="closeOrganicPopup()" style="position:absolute;top:32px;right:32px;background:#ff4e50;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:18px;font-weight:bold;cursor:pointer;z-index:1001;">Close</button>
+    </div>
+  </div>
+  <div id="facebook-popup" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:none;padding:0;border-radius:0;box-shadow:none;width:100vw;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <video id="facebook-video" width="100%" height="100%" controls style="border-radius:0;max-width:100vw;max-height:100vh;background:#000;">
+        <source src="https://archive.org/download/bonus-video-2.jpg/2.%20Prospecting%20on%20facebook%20for%20organic%20sales.jpg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <button onclick="closeFacebookPopup()" style="position:absolute;top:32px;right:32px;background:#ff4e50;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:18px;font-weight:bold;cursor:pointer;z-index:1001;">Close</button>
+    </div>
+  </div>
+  <div id="instagram-popup" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:none;padding:0;border-radius:0;box-shadow:none;width:100vw;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <video id="instagram-video" width="100%" height="100%" controls style="border-radius:0;max-width:100vw;max-height:100vh;background:#000;">
+        <source src="https://archive.org/download/bonus-video-2.jpg/3.%20Prospecting%20on%20instagram%20for%20organic%20sales.jpg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <button onclick="closeInstagramPopup()" style="position:absolute;top:32px;right:32px;background:#ff4e50;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:18px;font-weight:bold;cursor:pointer;z-index:1001;">Close</button>
+    </div>
+  </div>
+  <div id="social-popup" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:none;padding:0;border-radius:0;box-shadow:none;width:100vw;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <video id="social-video" width="100%" height="100%" controls style="border-radius:0;max-width:100vw;max-height:100vh;background:#000;">
+        <source src="https://archive.org/download/bonus-video-2.jpg/Organic%20sales-social%20presences.jpg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <button onclick="closeSocialPopup()" style="position:absolute;top:32px;right:32px;background:#ff4e50;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:18px;font-weight:bold;cursor:pointer;z-index:1001;">Close</button>
+    </div>
+  </div>
+  <div id="youtube-popup" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:none;padding:0;border-radius:0;box-shadow:none;width:100vw;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <video id="youtube-video" width="100%" height="100%" controls style="border-radius:0;max-width:100vw;max-height:100vh;background:#000;">
+        <source src="https://archive.org/download/bonus-video-2.jpg/1.%20Prospecting%20on%20youtube%20for%20organic%20sales.jpg%20%282%29.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <button onclick="closeYoutubePopup()" style="position:absolute;top:32px;right:32px;background:#ff4e50;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:18px;font-weight:bold;cursor:pointer;z-index:1001;">Close</button>
+    </div>
+  </div>
+  <footer class="footer-line" style="position:fixed;left:0;bottom:0;width:100vw;text-align:center;padding:4px 0;color:#fff;font-size:11px;text-shadow:1px 1px 4px #2e9ad0;background:rgba(46,154,208,0.85);z-index:10;">
+    © ALL RIGHTS RESERVED
+  </footer>
+  <script>
+    document.getElementById("goToWelcomeBtn")?.addEventListener("click", function() {
+  window.location.href = "WelcomePage.html";
+});
+    function showOrganicPopup() {
+      document.getElementById('organic-popup').style.display = 'flex';
+      var vid = document.getElementById('organic-video');
+      vid.currentTime = 0;
+      vid.play();
+    }
+    function closeOrganicPopup() {
+      document.getElementById('organic-popup').style.display = 'none';
+      var vid = document.getElementById('organic-video');
+      vid.pause();
+    }
+    function showFacebookPopup() {
+      document.getElementById('facebook-popup').style.display = 'flex';
+      var vid = document.getElementById('facebook-video');
+      vid.currentTime = 0;
+      vid.play();
+    }
+    function closeFacebookPopup() {
+      document.getElementById('facebook-popup').style.display = 'none';
+      var vid = document.getElementById('facebook-video');
+      vid.pause();
+    }
+    function showInstagramPopup() {
+      document.getElementById('instagram-popup').style.display = 'flex';
+      var vid = document.getElementById('instagram-video');
+      vid.currentTime = 0;
+      vid.play();
+    }
+    function closeInstagramPopup() {
+      document.getElementById('instagram-popup').style.display = 'none';
+      var vid = document.getElementById('instagram-video');
+      vid.pause();
+    }
+    function showSocialPopup() {
+      document.getElementById('social-popup').style.display = 'flex';
+      var vid = document.getElementById('social-video');
+      vid.currentTime = 0;
+      vid.play();
+    }
+    function closeSocialPopup() {
+      document.getElementById('social-popup').style.display = 'none';
+      var vid = document.getElementById('social-video');
+      vid.pause();
+    }
+    function showYoutubePopup() {
+      document.getElementById('youtube-popup').style.display = 'flex';
+      var vid = document.getElementById('youtube-video');
+      vid.currentTime = 0;
+      vid.pause(); // Do not autoplay
+    }
+    function closeYoutubePopup() {
+      document.getElementById('youtube-popup').style.display = 'none';
+      var vid = document.getElementById('youtube-video');
+      vid.pause();
+    }
+  </script>
+</body>
+</html>
