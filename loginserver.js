@@ -1,54 +1,62 @@
-// Simple Express login server with MongoDB
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const bodyParser = require('body-parser');
+// Basic Node.js server for login using MongoDB (no frameworks)
+// Save as c:/project/app/server/loginServer.js
+const { MongoClient } = require("mongodb");
+const express = require("express");
+const cors = require("cors");
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/myappdb')
-  .then(() => {
-    console.log('MongoDB connected');
-  }).catch(err => {
-    console.error('MongoDB connection error:', err);
-  });
+const url = process.env.MONGO_URL;
+const client = new MongoClient(url);
 
-// User schema and model
-const userSchema = new mongoose.Schema({
-  username: String,
-  password: String
-});
-const User = mongoose.model('User', userSchema);
+app.use('/ui/html', express.static(path.join(__dirname, '../ui/html')));
+app.use('/images', express.static(path.join(__dirname, '../images')));
+app.use('/html', express.static(path.join(__dirname, '../ui/html'))); // for legacy paths
 
-// Login endpoint
-app.post('/api/login', async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ username, password });
-  if (user) {
-    res.json({ success: true, message: 'Login successful' });
-  } else {
-    res.status(401).json({ success: false, message: 'Invalid credentials' });
+async function startServer() {
+  try {
+    await client.connect();
+    console.log("Connected to MongoDB");
+
+    // 👇 TYPE IT HERE
+    const db = client.db("userdb");
+    const users = db.collection("users");
+
+    // Example route
+    app.post("/register", async (req, res) => {
+      const { username, password } = req.body;
+      if (!username || !password) {
+        return res.json({ success: false, message: "Username and password required." });
+      }
+      const existingUser = await users.findOne({ username });
+      if (existingUser) {
+        return res.json({ success: false, message: "Username already exists." });
+      }
+      await users.insertOne({ username, password });
+      res.json({ success: true, message: "User Registered" });
+    });
+    app.post("/login", async (req, res) => {
+      const { username, password } = req.body;
+      const user = await users.findOne({ username, password });
+      if (user) {
+        res.json({ success: true });
+      } else {
+        res.json({ success: false, error: "Invalid credentials" });
+      }
+    });
+
+    app.listen(3000, () => {
+      console.log("Server running on port 3000");
+    });
+
+  } catch (err) {
+    console.log(err);
   }
-});
+}
 
-// Register endpoint
-app.post('/api/register', async (req, res) => {
-  const { username, password } = req.body;
-  const existing = await User.findOne({ username });
-  if (existing) {
-    return res.status(400).json({ success: false, message: 'Username already exists' });
-  }
-  const user = new User({ username, password });
-  await user.save();
-  res.json({ success: true, message: 'Registration successful' });
-});
+startServer();
 
-// Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});

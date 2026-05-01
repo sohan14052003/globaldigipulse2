@@ -547,6 +547,6 @@ app.get('/user-access-status', async (req, res) => {
   }
 });
 
-app.listen(5050, () => {
-  console.log('Payment server running on http://localhost:5050');
+app.listen(3000, () => {
+  console.log('Payment server running on http://localhost:3000');
 });
