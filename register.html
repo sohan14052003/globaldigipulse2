@@ -3,134 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | GLOBAL DIGI PULSE</title>
-    <link rel="icon" type="image/png" href="../images/icon-7797704_640.JPG">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>Register - GLOBAL DIGI PULSE</title>
+    <link rel="stylesheet" href="loginpage.css">
     <style>
         body {
-            background: linear-gradient(135deg, #e0e7ff 0%, #f7f7fa 50%, #ffe0e7 100%);
+            background: #f7f7fa;
             min-height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
         }
         .register-container {
             background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 12px #2e9ad033;
-            padding: 32px 24px 24px 24px;
+            padding: 36px 28px 30px 28px;
+            border-radius: 20px;
+            box-shadow: 0 4px 18px #2e9ad033, 0 0 18px #ffe06633;
             max-width: 350px;
             width: 100%;
-            margin-top: 60px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        h1 {
+        .register-container h2 {
             color: #2e9ad0;
             font-size: 2rem;
+            font-weight: bold;
             margin-bottom: 18px;
-            text-align: center;
         }
-        form {
+        .register-container form {
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 16px;
         }
-        input {
-            padding: 10px 12px;
-            border: 1px solid #bbb;
-            border-radius: 6px;
+        .register-container input {
+            padding: 10px;
             font-size: 16px;
+            border: 1px solid #2e9ad0;
+            border-radius: 12px;
         }
-        button[type="submit"] {
+        .register-container button[type="submit"] {
+            padding: 12px 0;
+            font-size: 18px;
             background: #2e9ad0;
             color: #fff;
             border: none;
-            border-radius: 6px;
-            padding: 12px 0;
-            font-size: 17px;
-            font-weight: bold;
-            margin-top: 8px;
-            cursor: pointer;
-            transition: background 0.2s;
+            border-radius: 12px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px #ffe066;
+            transition: background 0.3s;
         }
-        button[type="submit"]:hover {
-            background: #ff4e50;
+        .register-container button[type="submit"]:hover {
+            background: #232946;
         }
-        #registerMessage {
-            margin-top: 12px;
+        .register-message {
+            margin-top: 16px;
             color: #ff4e50;
-            font-size: 15px;
+            font-size: 17px;
+            font-weight: 600;
             text-align: center;
-            min-height: 20px;
+            min-height: 24px;
         }
-        .login-link {
+        .back-link {
             margin-top: 18px;
-            text-align: center;
-            font-size: 15px;
-        }
-        .login-link a {
             color: #2e9ad0;
             text-decoration: underline;
-        }
-        @media (max-width: 500px) {
-            .register-container {
-                padding: 18px 6px 18px 6px;
-                margin-top: 30px;
-            }
-            h1 { font-size: 1.3rem; }
+            cursor: pointer;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
     <div class="register-container">
-        <h1>Register</h1>
+        <h2>Create Account</h2>
         <form id="registerForm" autocomplete="off">
-            <input type="text" id="fullname" name="fullname" placeholder="Full Name" required autocomplete="off">
-            <input type="email" id="email" name="email" placeholder="Email" required autocomplete="off">
-            <input type="text" id="username" name="username" placeholder="Username" required autocomplete="off">
-            <input type="password" id="password" name="password" placeholder="Password" required autocomplete="off">
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required autocomplete="off">
+            <input type="text" id="registerUsername" name="username" placeholder="Username" required>
+            <input type="email" id="registerEmail" name="email" placeholder="Email" required>
+            <input type="password" id="registerPassword" name="password" placeholder="Password" required>
             <button type="submit">Register</button>
         </form>
-        <div id="registerMessage"></div>
-        <div class="login-link">Already have an account? <a href="LoginPage.html">Login here</a></div>
+        <div class="register-message" id="registerMessage"></div>
+        <div class="back-link" onclick="window.location.href='loginpage.html'">&larr; Back to Login</div>
     </div>
-    <footer style="margin-top:40px;text-align:center;color:#888;font-size:13px;">
-        © ALL RIGHTS RESERVED
-    </footer>
     <script>
     document.getElementById("registerForm").addEventListener("submit", async function(e) {
         e.preventDefault();
-        const fullname = document.getElementById("fullname").value;
-        const email = document.getElementById("email").value;
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
+        const username = document.getElementById("registerUsername").value;
+        const email = document.getElementById("registerEmail").value;
+        const password = document.getElementById("registerPassword").value;
         const msgDiv = document.getElementById("registerMessage");
+        msgDiv.style.color = "#2e9ad0";
         msgDiv.textContent = "Registering...";
-        if (password !== confirmPassword) {
-            msgDiv.style.color = "#ff4e50";
-            msgDiv.textContent = "Passwords do not match.";
-            return;
-        }
         try {
             const res = await fetch("https://globaldigipulse.onrender.com/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ fullname, username, email, password })
+                body: JSON.stringify({ username, email, password })
             });
             const data = await res.json();
             if (data.success) {
                 msgDiv.style.color = "#2e9ad0";
                 msgDiv.textContent = "Registration successful! Redirecting to login...";
                 setTimeout(() => {
-                    window.location.href = "LoginPage.html";
+                    window.location.href = "loginpage.html";
                 }, 1500);
             } else {
                 msgDiv.style.color = "#ff4e50";
@@ -143,6 +119,4 @@
     });
     </script>
 </body>
-</html>
-
 </html>

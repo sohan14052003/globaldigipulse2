@@ -1,16 +1,17 @@
 // Basic Node.js server for login using MongoDB (no frameworks)
 // Save as c:/project/app/server/loginServer.js
+require('dotenv').config({ path: './server/.env' });
 const { MongoClient } = require("mongodb");
 const express = require("express");
 const cors = require("cors");
 const path = require('path');
-require('dotenv').config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const url = process.env.MONGO_URL;
+const url = process.env.MONGO_URL || process.env.MONGO_URI;
+console.log("MongoDB URL:", url); // Debug log
 const client = new MongoClient(url);
 
 app.use('/ui/html', express.static(path.join(__dirname, '../ui/html')));
@@ -23,21 +24,29 @@ async function startServer() {
     console.log("Connected to MongoDB");
 
     // 👇 TYPE IT HERE
-    const db = client.db("userdb");
+    const db = client.db("userdb2");
     const users = db.collection("users");
 
     // Example route
     app.post("/register", async (req, res) => {
-      const { username, password } = req.body;
-      if (!username || !password) {
-        return res.json({ success: false, message: "Username and password required." });
+      const { username, email, password, fullname } = req.body;
+      console.log("Register attempt:", req.body); // Log registration data
+      if (!username || !email || !password) {
+        return res.json({ success: false, message: "Username, email, and password required." });
       }
-      const existingUser = await users.findOne({ username });
-      if (existingUser) {
-        return res.json({ success: false, message: "Username already exists." });
+      try {
+        // Check for existing username or email
+        const existingUser = await users.findOne({ $or: [ { username }, { email } ] });
+        if (existingUser) {
+          return res.json({ success: false, message: "User or email already exists." });
+        }
+        // Insert user, fullname is optional
+        await users.insertOne({ username, email, password, fullname: fullname || null });
+        res.json({ success: true, message: "User Registered" });
+      } catch (err) {
+        console.error("Registration error:", err);
+        res.status(500).json({ success: false, message: "Server/database error. Please try again." });
       }
-      await users.insertOne({ username, password });
-      res.json({ success: true, message: "User Registered" });
     });
     app.post("/login", async (req, res) => {
       const { username, password } = req.body;
